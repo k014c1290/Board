@@ -16,12 +16,7 @@
   </tr>
 </form>
   <?php
-  try{
     $db = new PDO('mysql:host=localhost;dbname=Boardlist;charset=utf8', 'root', '');
-}
-catch{
-  print("unko");
-}
     if(isset($_GET['login'])){
       $stt = $db->prepare('INSERT INTO board (user) VALUES (:user)');
       $stt->bindParam(':user', $_GET['name'], PDO::PARAM_STR);
@@ -38,19 +33,18 @@ catch{
     while($row = $stt->fetch()){
   ?>
   <tr>
-    <td class="task">
       <p><?php print($row['user']);
+               print(" ");
                print($row['date']);?>
        <form method="GET" action="./phpBoard.php">
          <input type="image" src="ico_ashcan1_9.gif" name="delete" alt="削除">
          <input type="hidden" name="delete" value="1">
          <input type="hidden" name="id" value="<?php print($row['id']); ?>">
        </form>
+        <?php
+        print("\n");
+        print($row['text']);?>
       </p>
-      <p><?php print($row['text']);?>
-      </p>
-
-    </td>
   </tr>
 
 <?php } ?>
